@@ -1,5 +1,5 @@
 const {Course} = require('../models');
-const departments = ['Math', 'English', 'History', 'Science', 'PE', 'Computer Science'].sort();
+const departments = ['Math', 'English', 'History', 'Science', 'PE', 'Computer Science', 'Art'].sort();
 
 //view all
 module.exports.viewAll = async function(req, res){
@@ -23,7 +23,15 @@ module.exports.renderAddForm = function(req, res){
     res.render('course/add', {course, departments});
 };
 //add
-
+module.exports.addCourse = async function(req, res){
+    const course = await Course.create({
+        name: req.body.name,
+        department: req.body.department,
+        instructor_name: req.body.instructor_name,
+        description: req.body.description
+    });
+    res.redirect(`/courses/profile/${course.id}`);
+};
 //render edit form
 module.exports.renderEditForm = async function(req, res){
     const course = await Course.findByPk(req.params.id);
