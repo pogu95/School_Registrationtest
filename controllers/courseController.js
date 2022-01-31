@@ -13,7 +13,15 @@ module.exports.viewProfile= async function(req, res){
     res.render('course/profile', {course})
 };
 //render add form
-
+module.exports.renderAddForm = function(req, res){
+    const course = {
+        name: '',
+        department: departments[0],
+        instructor_name: '',
+        description: ''
+    };
+    res.render('course/add', {course, departments});
+};
 //add
 
 //render edit form
